@@ -165,16 +165,24 @@ const validatation = (formEl) => {
   })
 }
 
-const submitLoginForm = async (formEl) => {
+const submitLoginForm = (formEl) => {
   // Front-end validate
   validatation(formEl)
 
   // await userStore.login(loginForm)
   console.log(loginForm);
-  await $axios.post('/api/login', loginForm).then(res => {
+  $axios.post('/api/login', loginForm).then(res => {
     console.log(res);
+    if (res.code === "200") {
+      // pinia save userInfor
+      userStore.setUser(res.result.user)
+      ElMessage.success("Login Successfully");
+      router.push('/home')
+    } else {
+      console.log("ERROR" + err);
+      ElMessage.error("Login Fail")
+    }
   }).catch(err => console.log("ERROR" + err))
-  // router.push('/home')
 }
 
 const toRegister = () => {

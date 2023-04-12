@@ -35,13 +35,13 @@ public class RoleController {
         // for each role list
         roleList.forEach(v -> {
             for (RolePermission rolePermission : rolePermissionList) {
-                if (rolePermission.getRoleId().equals(v.getId())) {
+                if (rolePermission.getRole_id().equals(v.getId())) {
                     filteredRolePermission.add(rolePermission);
                 }
             }
             System.out.println(filteredRolePermission);
             for (RolePermission rolePermission : filteredRolePermission) {
-                permissionIds.add(rolePermission.getPermissionId());
+                permissionIds.add(rolePermission.getPermission_id());
             }
             System.out.println(filteredRolePermission);
             System.out.println(permissionIds);

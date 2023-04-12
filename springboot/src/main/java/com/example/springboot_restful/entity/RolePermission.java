@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RolePermission {
     private Integer id;
-    private Integer roleId;
-    private Integer permissionId;
+    private Integer role_id;
+    private Integer permission_id;
 }

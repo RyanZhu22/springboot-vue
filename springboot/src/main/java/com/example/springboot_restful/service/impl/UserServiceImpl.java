@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     public LoginDTO login(UserRequest user) {
         User dbUser;
         try {
-            dbUser = this.findByUsername(user.getUsername());
+            dbUser = userMapper.findByUsername(user.getUsername());
         } catch (Exception e) {
             throw new RuntimeException("Database exception");
         }
@@ -59,25 +59,17 @@ public class UserServiceImpl implements UserService {
         if (dbUser == null) {
             throw new ServiceException("The user is not found");
         }
-        // decrypted based on BCrypt and then to verity
-//        if (!BCrypt.checkpw(user.getPassword(), dbUser.getPassword())) {
-//            throw new ServiceException("用户名或密码错误");
-//        }
-//        // Sa-Token Login Authentication
-//        StpUtil.login(dbUser.getId());
-//        // Caching user objects at login
-//        StpUtil.getSession().set(Constants.LOGIN_USER_KEY, dbUser);
-//        // get the token
-//        String tokenValue = StpUtil.getTokenInfo().getTokenValue();
 
         // 查询用户的菜单树（2层）
         String flag = dbUser.getRole();
         List<Permission> all = getPermissions(flag); // 水平
+
         // 页面菜单权限
         List<Permission> menus = getTreePermissions(all); // 树形
         // 页面按钮权限
         List<Permission> auths = all.stream().filter(permission -> permission.getType() == 3)
                 .collect(Collectors.toList());
+        log.info(all.toString(), menus, auths);
         // 返回登录数据
         return LoginDTO.builder().user(dbUser).menus(menus).auths(auths).build();
     }

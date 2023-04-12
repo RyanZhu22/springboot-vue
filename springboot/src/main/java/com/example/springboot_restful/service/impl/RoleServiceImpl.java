@@ -50,8 +50,8 @@ public class RoleServiceImpl implements RoleService {
         List<RolePermission> rolePermissionList = rolePermissionService.findAll();
         // for each role list
         roleList.forEach(v -> {
-            List<Integer> permissionIds = rolePermissionList.stream().filter(r -> r.getRoleId().equals(v.getId()))
-                    .map(RolePermission::getPermissionId).collect(Collectors.toList());
+            List<Integer> permissionIds = rolePermissionList.stream().filter(r -> r.getRole_id().equals(v.getId()))
+                    .map(RolePermission::getPermission_id).collect(Collectors.toList());
             v.setPermissionIds(permissionIds);
         });
 
@@ -84,8 +84,8 @@ public class RoleServiceImpl implements RoleService {
         // insert relationship data from front-end
         permissionIds.forEach(v -> {
             RolePermission rolePermission = new RolePermission();
-            rolePermission.setRoleId(roleId);
-            rolePermission.setPermissionId(v);
+            rolePermission.setRole_id(roleId);
+            rolePermission.setPermission_id(v);
             rolePermissionService.insert(rolePermission);
         });
     }

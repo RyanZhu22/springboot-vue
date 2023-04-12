@@ -34,8 +34,8 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         // 再把前端传输的菜单id数组绑定在当前角色id
         for (Integer menuId : menuIds) {
             RolePermission rolePermission = new RolePermission();
-            rolePermission.setRoleId(roleId);
-            rolePermission.setPermissionId(menuId);
+            rolePermission.setRole_id(roleId);
+            rolePermission.setPermission_id(menuId);
             this.insert(rolePermission);
         }
     }
