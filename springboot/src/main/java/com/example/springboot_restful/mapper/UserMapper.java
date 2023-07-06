@@ -4,6 +4,7 @@ import com.example.springboot_restful.entity.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface UserMapper{
